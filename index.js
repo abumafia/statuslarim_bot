@@ -1,9 +1,22 @@
 const { Telegraf, Markup, Scenes, session } = require('telegraf');
 const { MongoClient, ObjectId } = require('mongodb');
 require('dotenv').config();
+const express = require("express");
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 let db;
+const app = express();
+
+// Botni Express bilan birlashtirish
+app.use(bot.webhookCallback("/webhook"));
+
+// Render uchun asosiy route
+app.get("/", (req, res) => {
+  res.send("Bot is running 🚀");
+});
+
+// Webhook endpointini o‘rnatish
+bot.telegram.setWebhook("https://statuslarim-bot.onrender.com/webhook");
 
 // MongoDB ulanish
 async function connectDB() {

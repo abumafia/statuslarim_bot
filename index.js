@@ -359,15 +359,8 @@ bot.catch((err, ctx) => {
     ctx.reply('Xatolik yuz berdi!');
 });
 
-// Botni ishga tushirish
-async function startBot() {
-    await connectDB();
-    await bot.launch();
-    console.log('Bot ishga tushdi!');
-}
-
-startBot();
-
-// Graceful shutdown
-process.once('SIGINT', () => bot.stop('SIGINT'));
-process.once('SIGTERM', () => bot.stop('SIGTERM'));
+// Render uchun portni ochish
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server ${PORT}-portda ishlayapti`);
+});
